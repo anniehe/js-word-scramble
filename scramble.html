@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Word Scramble</title>
+</head>
+<body>
+    <h1>A Javascript Word Scramble Game</h1>
+
+    <script>
+        "use strict";
+
+        var WORDS     = ["booger", "apple", "hackbright", "mango", "popcorn", "javascript", "python"];
+        var SCRAMBLED = ["oogreb", "papel", "backrhight", "goman"];
+
+        var playing = true;
+
+        while (playing) {
+
+            // Grab a random word from the WORDS array
+            var wordIndex = Math.floor(Math.random()*WORDS.length);
+            var correctWord = WORDS[wordIndex];
+
+            // Grab the corresponding scrambled word from the SCRAMBLED array
+            // var scrambledWord = SCRAMBLED[wordIndex];
+
+            // Function expression scrambles the random word chosen from the WORDS array
+            var scrambleWord = function (word) {
+
+                var splitWord = word.split("");
+                var wordLength = splitWord.length;
+
+                for (var i = wordLength - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var tmp = splitWord[i];
+                    splitWord[i] = splitWord[j];
+                    splitWord[j] = tmp;
+                }
+            
+                return splitWord.join("");
+            };
+
+            var scrambledWord = scrambleWord(correctWord)
+
+            // prompt the user to guess the original word when given the scrambled word
+            alert("Here's the scrambled word: " + "\"" + scrambledWord + "\"");
+            var guess = prompt("Guess the original word ", scrambledWord);
+            var guess = guess.toLowerCase();
+            var guess = guess.trim();
+
+            // If the user guesses wrong, tell them they were wrong and the right word. If the user guesses the correct word, congratulate them.
+
+            if (guess !== correctWord) {
+                alert("You guessed wrong, the correct answer is " + "\"" + correctWord + ".\"");
+            } else {
+                alert("Yay! You guessed " + "\"" + correctWord + "\"" + " correctly!");
+            }
+
+            playing = confirm("Press OK To keep playing or Cancel to quit");
+
+            // What does confirm() return?
+            // confirm() returns true (if selected OK) or false (if selected Cancel)
+
+            // What does setting the playing variable do?
+            // While playing is true, you keep playing the word scramble game.
+            // Once playing is false, you exit the while loop.
+        }
+
+        alert("goodbye!");
+    </script>
+    
+</body>
+</html>
